@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="mainPage">
-    <nav id="menu">
+    <nav id="menu" style="visibility: hidden">
         <ul>
             @can('project-list')
                 <li><a href="/">Projects</a></li>
