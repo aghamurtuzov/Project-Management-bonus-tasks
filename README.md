@@ -10,6 +10,7 @@ The "Project Management Tool Development" is a comprehensive solution for managi
 - **Repository Design Pattern:** The project uses a structure consisting of Interface, Service, and Repository files.
 - **Pusher:** For real-time updates.
 - **Spatie Laravel Permission:** For user management and permissions.
+- **Dockerization:** To containerize the application for a consistent development and deployment environment.
 - **Unit Tests:** Unit tests are written for the `projects` and `tasks` tables.
 
 ## Installation Instructions
