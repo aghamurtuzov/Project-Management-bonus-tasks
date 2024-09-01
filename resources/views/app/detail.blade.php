@@ -234,7 +234,7 @@
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Edit';
                     editButton.className = 'edit';
-                    editButton.onclick = () => openModal(e.data.name, e.data.description, e.data.id);
+                    editButton.onclick = () => openModal(e.data.name, e.data.description,e.data.status, e.data.id);
                     actionButtonsDiv.appendChild(editButton);
                 }
 
