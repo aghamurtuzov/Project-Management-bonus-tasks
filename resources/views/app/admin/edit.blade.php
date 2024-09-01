@@ -28,7 +28,7 @@
                     </select>
                 </fieldset>
                 <fieldset>
-                    <input id="password" type="password" name="password" placeholder="Password" required autocomplete="new-password">
+                    <input id="password" type="password" name="password" placeholder="Password" autocomplete="new-password">
                     @error('password')
                     <p>{{ $message }}</p>
                     @enderror
