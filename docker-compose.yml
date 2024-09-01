@@ -1,0 +1,59 @@
+version: '3.8'
+
+networks:
+    main:
+
+services:
+    nginx:
+        image: nginx
+        container_name: nginx_app
+        restart: always
+        ports:
+            - "8080:80"
+        depends_on:
+            - php
+            - mysql
+        volumes:
+            - ./:/var/www/app
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - main
+
+    mysql:
+        image: mysql:lts
+        container_name: mysql_db
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./mysql:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: main_db
+            MYSQL_USER: main_user
+            MYSQL_PASSWORD: 123456
+            MYSQL_ROOT_PASSWORD: 123456
+            SERVICE_TAGS: production
+            SERVICE_NAME: mysql
+        networks:
+            - main
+
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: php_app
+        restart: always
+        volumes:
+            - ./:/var/www/app
+            - "/etc/timezone:/etc/timezone:ro"
+            - "/etc/localtime:/etc/localtime:ro"
+        ports:
+            - "9000:9000"
+        environment:
+            upload_max_filesize: 600M
+            post_max_size: 512M
+            max_execution_time: 600
+            memory_limit: 480M
+        networks:
+            - main
