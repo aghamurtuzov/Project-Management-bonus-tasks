@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Repository\User\Service\UserService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -21,7 +23,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $users = $this->user->index();
 
@@ -34,7 +36,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         $roles = $this->user->create();
 
@@ -44,8 +46,15 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:confirm-password',
+            'roles' => 'required'
+        ]);
+
         $this->user->store($request->all());
 
         return redirect()->route('users.index')
@@ -59,7 +68,7 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): View
     {
         $data = $this->user->edit($id);
         return view('app.admin.edit', compact('data'));
@@ -68,10 +77,15 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'roles' => 'required'
+        ]);
 
-        $user = $this->user->update($request->all(), $id);
+        $this->user->update($request->all(), $id);
 
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully');
@@ -81,9 +95,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        $user = $this->user->destroy($id);
+       $this->user->destroy($id);
 
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
