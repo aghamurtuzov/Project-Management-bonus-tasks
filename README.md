@@ -16,8 +16,7 @@ The "Project Management Tool Development" is a comprehensive solution for managi
 ## Installation Instructions
 1. **Clone the Repository:**
     ```bash
-    git clone https://github.com/yourusername/project-management-tool.git
-    cd project-management-tool
+    git clone https://github.com/aghamurtuzov/Project-Management-bonus-tasks.git
     ```
 
 2. **Install the Required Dependencies:**
@@ -47,17 +46,23 @@ The "Project Management Tool Development" is a comprehensive solution for managi
     VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
     ```
 
-4. **Run Database Migrations and Seeders:**
+4. **Generate Application Key:**
+   Generate an application key for the Laravel application:
+    ```bash
+    php artisan key:generate
+    ```
+
+5. **Run Database Migrations and Seeders:**
     ```bash
     php artisan migrate --seed
     ```
 
-5. **Run Unit Tests:**
+6. **Run Unit Tests:**
     ```bash
     php artisan test
     ```
 
-6. **Start the Application:**
+7. **Start the Application:**
     ```bash
     php artisan serve
     ```
