@@ -234,7 +234,8 @@
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Edit';
                     editButton.className = 'edit';
-                    editButton.onclick = () => openModal(e.data.name, e.data.description,e.data.status, e.data.id);
+                    console.log(e.data)
+                    editButton.onclick = () => openModal(e.data.name, e.data.description, e.data.status, e.data.id);
                     actionButtonsDiv.appendChild(editButton);
                 }
 
@@ -272,6 +273,19 @@
                     const cells = rowToUpdate.querySelectorAll('td');
                     cells[0].innerText = e.data.name;
                     cells[1].innerText = e.data.description;
+                    console.log(e.data)
+                    let status = '';
+                    if (e.data.status === "1")
+                        status = 'TODO'
+                    else if (e.data.status === "2")
+                        status = 'IN_PROGRESS'
+                    else
+                        status = 'DONE'
+                    cells[2].innerText = status;
+
+                    const editButton = rowToUpdate.querySelector('.edit');
+                    editButton.onclick = () => openModal(e.data.name, e.data.description, e.data.status, e.data.id);
+
                 }
             })
             .listen('.task.deleted', (e) => {
@@ -322,13 +336,13 @@
 
                 // "Status" field
                 const statusCell = document.createElement('td');
-                let status='';
-                if(item.status===1)
-                    status='TODO'
-                else if(item.status===2)
-                    status='IN_PROGRESS'
+                let status = '';
+                if (item.status === 1)
+                    status = 'TODO'
+                else if (item.status === 2)
+                    status = 'IN_PROGRESS'
                 else
-                    status='DONE'
+                    status = 'DONE'
                 statusCell.textContent = status;
                 row.appendChild(statusCell);
 

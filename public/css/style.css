@@ -115,9 +115,9 @@ nav ul li a{
     background-color:#ce352d;
 }
 
-/*.action-buttons .edit {*/
-/*    background-color:#ff4136;*/
-/*}*/
+button{
+    cursor: pointer;
+}
 
   .pagination ul{
     display: flex;
