@@ -10,18 +10,25 @@
             <div class="flex">
                 <fieldset>
                     <label for="">Name</label>
-                    <input type="text" name="name" required placeholder="Text" />
+                    <input type="text" name="name" value="{{old('name')}}" required placeholder="Text"/>
+                    @error('name')
+                    <span class="validate-error">{{ $message }}</span>
+                    @enderror
                 </fieldset>
             </div>
             <div class="flex mt-20">
                 @foreach($permissions as $permission)
-                <div class="col-5 col-sm-6 col-md-4 col-md-3 checkbox">
-                    <input type="checkbox" id="check-{{$permission->id}}" name="permission[{{$permission->id}}]" value="{{$permission->id}}" />
-                    <label class="form-check-label" for="check1">
-                        {{$permission->name}}
-                    </label>
-                </div>
+                    <div class="col-5 col-sm-6 col-md-4 col-md-3 checkbox">
+                        <input type="checkbox" id="check-{{$permission->id}}" name="permission[{{$permission->id}}]"
+                               value="{{$permission->id}}"/>
+                        <label class="form-check-label" for="check1">
+                            {{$permission->name}}
+                        </label>
+                    </div>
                 @endforeach
+                @error('permission')
+                <span class="validate-error">{{ $message }}</span>
+                @enderror
             </div>
             <button class="mt-20" type="submit">Submit</button>
         </form>

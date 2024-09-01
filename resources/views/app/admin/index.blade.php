@@ -8,9 +8,9 @@
     </div>
     <div class="table-responsive">
         @session('success')
-        <div class="alert alert-success" role="alert">
-            {{ $value }}
-        </div>
+            <div class="alert alert-success" role="alert">
+                {{ $value }}
+            </div>
         @endsession
         <table id="table-design">
             <thead>

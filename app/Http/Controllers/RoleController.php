@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Repository\Role\Service\RoleService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class RoleController extends Controller
 {
@@ -27,7 +29,7 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $roles = $this->role->index();
 
@@ -40,7 +42,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         $permissions = $this->role->create();
         return view('app.role.create',compact('permissions'));
@@ -49,8 +51,13 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+        ]);
+
         $this->role->store($request->all());
 
         return redirect()->route('roles.index')
@@ -64,7 +71,7 @@ class RoleController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): View
     {
         $data = $this->role->edit($id);
 
@@ -74,8 +81,12 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'permission' => 'required',
+        ]);
 
         $this->role->update($request->all(), $id);
 
@@ -87,7 +98,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         $this->role->destroy($id);
 
