@@ -22,7 +22,7 @@
             @can('role-list')
                 <li><a href="{{route('roles.index')}}">Role</a></li>
             @endcan
-            <li><a href="/">Documention</a></li>
+            <li><a href="https://github.com/aghamurtuzov/Project-Management-bonus-tasks.git">Documention</a></li>
         </ul>
     </nav>
     <div id="main">
